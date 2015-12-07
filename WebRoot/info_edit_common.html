@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>基础信息修改</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/party.js"></script>
+    <link href="css/party.css" rel="stylesheet">
+    <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+    <nav id="header" class="navbar navbar-default" role="navigation">
+        <div id="header-container" class="container navbar-container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span id="brand" class="navbar-brand">党建系统</span>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active">
+                        <a href="file:///D:/Web/party_pro/WebRoot/index.html">首页</a>
+                    </li>
+                    <li>
+                        <a href="#">修改密码</a>
+                    </li>
+                    <li>
+                        <a href="#">注销</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid main-container">
+        <div class="col-md-2 sidebar">
+            <div>
+                <div class="well">
+                    <span><h4>个人页面</h4></span>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="active"><a href="#">个人信息</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div class="well">
+                    <span><h4>管理页面</h4></span>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="#">用户检索</a></li>
+                        <li><a href="#">修改审核</a></li>
+                        <li><a href="#">添加用户</a></li>
+                        <li><a href="#">批量导入</a></li>
+                        <li><a href="#">党支部管理</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-10 content">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    信息修改
+                </div>
+                <div class="panel-body">
+                    <form id="info-edit-form-common" accept-charset="UTF-8" action="" method="post" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">姓名：</label>
+                            <div class="col-md-2">
+                                <input type="text" id="name" class="form-control" value="张三" name="name"/>
+                            </div>
+                            <label class="col-md-2 control-label">学号：</label>
+                            <div class="col-md-2">
+                                <input type="text" id="studentid" class="form-control" value="12345678" name="studentid"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">班级：</label>
+                            <div class="col-md-2">
+                                <input type="text" id="uclass" class="form-control" value="计科1204班" name="uclass"/>
+                            </div>
+                            <label class="col-md-2 control-label">籍贯：</label>
+                            <div class="col-md-2">
+                                <input type="text" id="origo" class="form-control" value="北京市" name="origo"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">性别：</label>
+                            <div class="col-md-2">
+                                <select class="form-control">
+                                    <option value="m" selected="selected">男</option>
+                                    <option value="f">女</option>
+                                </select>
+                            </div>
+                            <label class="col-md-2 control-label">民族：</label>
+                            <div class="col-md-2">
+                                <input type="text" id="nation" class="form-control" value="汉族" name="nation"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">出生日期：</label>
+                            <div class="col-md-2">
+                                <input type="text" id="birthday" class="form-control" value="1993年6月12日" name="birthday" onclick="" />
+                            </div>
+                            <label class="col-md-2 control-label">宿舍：</label>
+                            <div class="col-md-2">
+                                <input type="text" id="dorimitory" class="form-control" value="JB-1410" name="dorimitory"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">联系方式：</label>
+                            <div class="col-md-2">
+                                <input type="text" id="telephone" class="form-control" value="15800000000" name="telephone"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">社会工作：</label>
+                            <div class="col-md-5">
+                                <textarea type="text" id="job" class="form-control" rows="5" name="job">校学生会主席，计科1204班班长</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <footer class="pull-left footer">
+            <p class="col-md-12">
+                <hr class="divider">
+                <span class="text-center">Copyright &COPY; 2015 by Xiangchaobin,Zhaolei,Liyajing</span>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
