@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>党支部管理</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/party.js"></script>
+    <link href="css/party.css" rel="stylesheet">
+    <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+    <nav id="header" class="navbar navbar-default" role="navigation">
+        <div id="header-container" class="container navbar-container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span id="brand" class="navbar-brand">党建系统</span>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="file:///D:/Web/party_pro/WebRoot/index.html">首页</a>
+                    </li>
+                    <li>
+                        <a href="file:///D:/Web/party_pro/WebRoot/password_edit.html">修改密码</a>
+                    </li>
+                    <li>
+                        <a href="#">注销</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid main-container">
+        <div class="col-md-2 sidebar">
+            <div>
+                <div class="well">
+                    <span><h4>个人页面</h4></span>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="file:///D:/Web/party_pro/WebRoot/index.html">个人信息</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div class="well">
+                    <span><h4>管理页面</h4></span>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="#">用户检索</a></li>
+                        <li><a href="#">添加用户</a></li>
+                        <li><a href="#">批量导入</a></li>
+                        <li class="active"><a href="#">党支部管理</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-10 content">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    修改党支部
+                </div>
+                <div class="panel-body">
+                    <form id="add-partybranch-form" accept-charset="UTF-8" action="" method="post" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">党支部名称：</label>
+                            <div class="col-md-4">
+                                <input type="text" id="name" class="form-control" value="张三" name="name"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">党支部管理员：</label>
+                            <div class="col-md-2">
+                                <select class="form-control">
+                                    <option value="">请选择</option>
+                                    <option value="1">张三</option>
+                                    <option value="1">张三</option>
+                                    <option value="1">张三</option>
+                                    <option value="1">张三</option>
+                                    <option value="1">张三</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="submit" class="btn btn-primary">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <footer class="pull-left footer">
+            <p class="col-md-12">
+                <hr class="divider">
+                <span class="text-center">Copyright &COPY; 2015 by Xiangchaobin,Zhaolei,Liyajing</span>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
