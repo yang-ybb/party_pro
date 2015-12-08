@@ -19,7 +19,11 @@ public class UserSql {
      * 合并两个有序列表
      */
     private static List<Integer> mergeList(List<Integer> a, List<Integer> b) {
+<<<<<<< HEAD
         List<Integer> res = new ArrayList<Integer>;
+=======
+        List<Integer> res = new ArrayList<Integer>();
+>>>>>>> 0c0da46c460d3c745ebe8f8f2af0492cb76de712
         int i = 0;
         int j = 0;
         int length1 = a.size();
@@ -54,7 +58,11 @@ public class UserSql {
      *       conditions.op   : 限定方法(运算符)
      */
     public static List<Integer> filterUser(SqlSession session, List<Condition> conditions) {
+<<<<<<< HEAD
         length = conditions.size();
+=======
+        int length = conditions.size();
+>>>>>>> 0c0da46c460d3c745ebe8f8f2af0492cb76de712
         Condition first = conditions.get(0);
         List<Integer> res = session.selectList("_getIdByCondition", first);
         int i = 1;
