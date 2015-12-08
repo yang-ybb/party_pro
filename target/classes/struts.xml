@@ -5,8 +5,8 @@
 <struts>
 	<package name="Authentication" namespace="/" extends="struts-default">
 		<action name="loginAction" class="org.party.action.LoginAction" method="execute">
-			<result name="success">UsesrInfo.jsp</result>
-			<result name="error">Login.jsp?loginInfo=error</result>
+			<result name="success">Index.jsp</result>
+			<result name="error">404.jsp?</result>
 		</action>
 	</package>
 </struts>
