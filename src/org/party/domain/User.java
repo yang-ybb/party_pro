@@ -2,7 +2,65 @@ package org.party.domain;
 
 import java.sql.Date;
 
+import org.apache.ibatis.session.SqlSession;
+import org.party.persistence.DaoConfig;
+import org.party.persistence.UserSql;
+
 public class User {
+	public static User currentUser = null;
+	
+	public static boolean verifyLogin(String studentId, String password) {
+		User user = new User();
+		user.setStudentid(studentId);
+		user.setPasswd(password);
+		boolean result = false;
+		SqlSession session = DaoConfig.getNewSession();
+		try {
+			result = UserSql.checkUser(session, user);
+		}
+		catch(Exception e) {
+			//todo: 添加log
+			e.printStackTrace();
+		}
+		finally {
+			session.close();
+		}
+		
+		return result;
+	}
+	
+	/*
+	 * 通过studentId获取User
+	 */
+	public static User findByStudentId(String studentId) {
+		SqlSession session = DaoConfig.getNewSession();
+		User user = null;
+		try {
+			PairObjObj pair = new PairObjObj();
+			pair.setFirst("studentid");
+			pair.setSecond(studentId);
+			user = UserSql.getUserByAttribute(session, pair).get(0);
+		}
+		catch(Exception e) {
+			//todo: 添加log
+			e.printStackTrace();
+		}
+		finally {
+			session.close();
+		}
+		
+		return user;
+	}
+	
+	public static boolean setCurrentUser(String studentId, String password) throws Exception {
+		boolean checkResult = User.verifyLogin(studentId, password);
+		if(checkResult) {
+			currentUser = User.findByStudentId(studentId);
+			return true;
+		}
+		return false;
+	}
+	
     public Integer getId() {
 		return id;
 	}
