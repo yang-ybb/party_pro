@@ -17,12 +17,13 @@ CREATE TABLE `userinfo` (
        `origo` VARCHAR(50) NOT NULL COMMENT '籍贯',
        `permission` INT NOT NULL COMMENT '权限：0.root 1.管理员，2.普通',
        `status` INT NOT NULL COMMENT '状态: 0.申请入党 1.入党积极分子 2.发展对象 3.预备党员 4.正式党员',
+       `next_status` INT NOT NULL COMMENT '可转状态: 0.不可转 1.入党积极分子 2.发展对象 3.预备党员 4.正式党员',
        `is_complete` INT NOT NULL COMMENT '提交材料完整性，该字段由外围程序维护......想维护的看python脚本去吧=_=',
-       `be_passpartyclass_date` DATE NULL COMMENT '党课通过时间',
-       `be_activist_date` DATE NULL COMMENT '确定为积极分子时间',
-       `be_target_date` DATE NULL COMMENT '确定为发展对象的时间',
-       `be_probationary_date` DATE NULL COMMENT '确定为预备党员的时间',
-       `be_fullmember_date` DATE NULL COMMENT '确定为正式党员的时间',
+       `be_passpartyclass_date` DATE NOT NULL COMMENT '党课通过时间',
+       `be_activist_date` DATE NOT NULL COMMENT '确定为积极分子时间',
+       `be_target_date` DATE NOT NULL COMMENT '确定为发展对象的时间',
+       `be_probationary_date` DATE NOT NULL COMMENT '确定为预备党员的时间',
+       `be_fullmember_date` DATE NOT NULL COMMENT '确定为正式党员的时间',
        UNIQUE (`studentid`),
        PRIMARY KEY(`id`)
 ) DEFAULT CHARSET=UTF8;
@@ -41,7 +42,7 @@ CREATE TABLE `PartyBranch`(
 )DEFAULT CHARSET=UTF8;
 
 CREATE TABLE `tmp_userinfo` (
-       `id` INT NOT NULL auto_increment COMMENT '系统隐式ID',
+       `id` INT NOT NULL COMMENT '系统隐式ID',
        `studentid` VARCHAR(20) NOT NULL COMMENT '学号',
        `name` VARCHAR(20) NOT NULL COMMENT '姓名',
        `partybranchid` INT NOT NULL COMMENT '党支部编号',
@@ -57,14 +58,13 @@ CREATE TABLE `tmp_userinfo` (
        `origo` VARCHAR(50) NOT NULL COMMENT '籍贯',
        `permission` INT NOT NULL COMMENT '权限：0.root 1.管理员，2.普通',
        `status` INT NOT NULL COMMENT '状态: 0.申请入党 1.入党积极分子 2.发展对象 3.预备党员 4.正式党员',
-       `is_complete` INT NOT NULL COMMENT '提交材料完整性，该字段由外围程序维......想维护的看python脚本去吧=_=',
-       /*以下各时间字段均默认为空*/
-       `be_passpartyclass_date` DATE NULL COMMENT '党课通过时间',
-       `be_activist_date` DATE NULL COMMENT '确定为积极分子时间',
-       `be_target_date` DATE NULL COMMENT '确定为发展对象的时间',
-       `be_probationary_date` DATE NULL COMMENT '确定为预备党员的时间',
-       `be_fullmember_date` DATE NULL COMMENT '确定为正式党员的时间',
-       `commit_time` DATE NULL COMMENT '提交时间',
+       `next_status` INT NOT NULL COMMENT '可转状态: 0.不可转 1.入党积极分子 2.发展对象 3.预备党员 4.正式党员',
+       `is_complete` INT NOT NULL COMMENT '提交材料完整性，该字段由外围程序维护......想维护的看python脚本去吧=_=',
+       `be_passpartyclass_date` DATE NOT NULL COMMENT '党课通过时间',
+       `be_activist_date` DATE NOT NULL COMMENT '确定为积极分子时间',
+       `be_target_date` DATE NOT NULL COMMENT '确定为发展对象的时间',
+       `be_probationary_date` DATE NOT NULL COMMENT '确定为预备党员的时间',
+       `be_fullmember_date` DATE NOT NULL COMMENT '确定为正式党员的时间',
        UNIQUE (`studentid`),
        PRIMARY KEY(`id`)
 ) DEFAULT CHARSET=UTF8;

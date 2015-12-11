@@ -1,6 +1,115 @@
 package org.party.domain;
 
+import java.util.Date;
+
 public class Commit {
+	private String notice = "";
+	private User user;
+	
+	/*
+	 * 获取档案信息提示消息
+	 */
+	public String getNotice() {
+		switch(getUser().getStatus()) {
+			case 0 :
+				notice = checkBasicCommitOfShenqingrudang();
+				break;
+			case 1 :
+				notice = checkBasicCommitOfJijifenzi();
+				break;
+			case 2 :
+				notice = checkBasicCommitOfFazhanduixiang();
+				break;
+			case 3 :
+				notice = checkBasicCommitOfYubeidangyuan();
+				break;
+			case 4 : notice = ""; break;
+		}
+		if(notice == "") {
+			notice = "无";
+		}
+		return notice;
+	}
+	
+	/*
+	 * 申请入党，档案信息检查
+	 */
+	private String checkBasicCommitOfShenqingrudang() {
+		String result = "";
+		result += checkDataCount(rudangshenqingshu, 1, "入党申请书");
+		result += checkDataCount(tuiyourudang, 1, "推优入党材料");
+		return result;
+	}
+	
+	/*
+	 * 积极分子，档案信息检查
+	 */
+	private String checkBasicCommitOfJijifenzi() {
+		String result = "";
+		result += checkDataCount(jijifenzikaochabiao, 1, "积极分子考察表");
+		Date beginDate = new Date(getUser().getBe_activist_date().toString());
+		result += checkDataCount(sixianghuibao, countMonthDiffFromNow(beginDate)/3, "思想汇报");
+		return result;
+	}
+	
+	/*
+	 * 发展对象，档案信息检查
+	 */
+	private String checkBasicCommitOfFazhanduixiang() {
+		String result = "";
+		Date beginDate = new Date(getUser().getBe_activist_date().toString());
+		result +=  checkDataCount(sixianghuibao, countMonthDiffFromNow(beginDate)/3, "思想汇报");
+		return result;
+	}
+	
+	/*
+	 * 预备党员，档案信息检查
+	 */
+	private String checkBasicCommitOfYubeidangyuan() {
+		String result = "";
+		result += checkDataCount(yubeidangyuankaochabiao, 1, "预备党员考察表");
+		Date beActivistDate = getUser().getBe_activist_date();
+		result += (checkDataCount(sixianghuibao + banqizongjie + quannianzongjie, countMonthDiffFromNow(beActivistDate)/3, "思想汇报"));
+		return result;
+	}
+	
+	/*
+	 * ==== 描述
+	 *   判断材料缺几份，生成提示信息
+	 * 
+	 * ==== 参数
+	 * 	dataCount：现有材料份数
+	 *  expectCount：期望的材料份数
+	 *  info：当前材料名字
+	 * 
+	 * ==== 返回值
+	 *  字符串，如：缺3份思想汇报
+	 */
+	private String checkDataCount(Integer dataCount, Integer expectCount, String info) {
+		if(expectCount <= dataCount) {
+			return "";
+		}
+		else {
+			return "缺" + (expectCount - dataCount) + "份" + info;
+		}
+	}
+	
+	private Integer countMonthDiffFromNow(Date beginDate) {
+		Date now = new Date();
+		int result = 0;
+		result += (now.getYear() - beginDate.getYear())*12;
+		result -= beginDate.getMonth();
+		result += now.getMonth();
+		if(now.getDay() < beginDate.getDay()) {
+			result -= 1;
+		}
+		return result;
+	}
+	
+	public User getUser() {
+		return User.findById(uid);
+	}
+	
     public Integer getUid() {
 		return uid;
 	}
@@ -31,11 +140,11 @@ public class Commit {
 	public void setSixianghuibao(Integer sixianghuibao) {
 		this.sixianghuibao = sixianghuibao;
 	}
-	public Integer getZhengshengcailiao() {
-		return zhengshengcailiao;
+	public Integer getZhengshencailiao() {
+		return zhengshencailiao;
 	}
-	public void setZhengshengcailiao(Integer zhengshengcailiao) {
-		this.zhengshengcailiao = zhengshengcailiao;
+	public void setZhengshencailiao(Integer zhengshencailiao) {
+		this.zhengshencailiao = zhengshencailiao;
 	}
 	public Integer getZhengshenbaogao() {
 		return zhengshenbaogao;
@@ -114,7 +223,7 @@ public class Commit {
     private Integer jijifenzikaochabiao;
     private Integer zizhuan;
     private Integer sixianghuibao;
-    private Integer zhengshengcailiao;
+    private Integer zhengshencailiao;
     private Integer zhengshenbaogao;
     private Integer qunzhongyijian;
     private Integer dangxiaojieyezheng;

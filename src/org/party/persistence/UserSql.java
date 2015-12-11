@@ -7,8 +7,8 @@ import java.util.*;
 import java.sql.Date;
 
 @SuppressWarnings("unchecked")
-public class UserSql {
-    /*
+public class UserSql {	
+	/*
      * 通过ID索引用户，不存在的时候返回null
      */
     public static User getUserById(SqlSession session, Integer id) {
@@ -70,8 +70,8 @@ public class UserSql {
      * args: at_val.first 需要筛选的属性
      *       attr_val.second 需要筛选的属性值
      */
-    public static List<User> getUserByAttribute(SqlSession session, PairObjObj attr_val) {
-        return session.selectList("selectUserBysId", attr_val);
+    public static List<User> getUsersByAttributes(SqlSession session, User attributes) {
+        return session.selectList("selectUserByAttributes", attributes);
     }
 
     /*
@@ -79,6 +79,13 @@ public class UserSql {
      */
     public static List<Integer> getIntroIdListById (SqlSession session, Integer id){
         return session.selectList("getIntroIdListById", id);
+    }
+    
+    /*
+     * 获得某个User(由ID确定)的所有介绍人
+     */
+    public static List<User> getIntroListById (SqlSession session, Integer id){
+        return session.selectList("getIntroListById", id);
     }
     
     /*

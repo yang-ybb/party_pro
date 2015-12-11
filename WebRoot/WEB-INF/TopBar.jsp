@@ -13,12 +13,10 @@
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li><a
-					href="file:///D:/Web/party_pro/WebRoot/index.html">首页</a></li>
-				<li><a
-					href="file:///D:/Web/party_pro/WebRoot/password_edit.html">修改密码</a>
+				<li><a href="index">首页</a></li>
+				<li><a href="passwordEdit">修改密码</a>
 				</li>
-				<li><a href="#">注销</a></li>
+				<li><a href="logout">注销</a></li>
 			</ul>
 		</div>
 	</div>

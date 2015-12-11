@@ -3,10 +3,70 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
+	<constant name="struts.devMode" value="true"/>
 	<package name="Authentication" namespace="/" extends="struts-default">
+		<default-action-ref name="login"/>
+		<action name="login">
+			<result>Login.jsp</result>
+		</action>
 		<action name="loginAction" class="org.party.action.LoginAction" method="execute">
-			<result name="success">Index.jsp</result>
-			<result name="error">Login.jsp</result>
+			<result name="success" type="redirectAction">index</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="logout">
+			<result>/WEB-INF/Logout.jsp</result>
+		</action>
+		<action name="index" class="org.party.action.UserAction" method="index">
+			<result name="success">WEB-INF/Index.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="userInfoEdit" class="org.party.action.UserAction" method="userInfoEdit">
+			<result name="success">/WEB-INF/UserInfoEdit.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="userInfoUpdate" class="org.party.action.UserAction" method="userInfoUpdate">
+			<result name="success" type="redirectAction">index</result>
+			<result name="false">/WEB-INF/UserInfoEdit.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="passwordEdit" class="org.party.action.UserAction" method="passwordEdit">
+			<result name="success">/WEB-INF/PasswordEdit.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="passwordUpdate" class="org.party.action.UserAction" method="passwordUpdate">
+			<result name="success" type="redirectAction">login</result>
+			<result name="false">/WEB-INF/PasswordEdit.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="search" class="org.party.action.ManageSearchAction" method="search">
+			<result name="success">/WEB-INF/ManageSearch.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="manageUser" class="org.party.action.ManageUserAction" method="manageUser">
+			<result name="success">/WEB-INF/ManageUser.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="manageUserChangeCheck">
+			<result>/WEB-INF/ManageUserChangeCheck.jsp</result>
+		</action>
+		<action name="manageUserInfoEdit">
+			<result>/WEB-INF/ManageUserInfoEdit.jsp</result>
+		</action>
+		<action name="manageUserCommitEdit">
+			<result>/WEB-INF/ManageUserCommitEdit.jsp</result>
+		</action>
+		<action name="manageUserAdd">
+			<result>/WEB-INF/ManageUserAdd.jsp</result>
+		</action>
+		<action name="manageUserImport">
+			<result>/WEB-INF/ManageUserImport.jsp</result>
+		</action>
+		<action name="managePartyBranch" class="org.party.action.ManageAction" method="managePartyBranch">
+			<result name="success">/WEB-INF/ManagePartyBranch.jsp</result>
+			<result name="error">404.jsp</result>
+		</action>
+		<action name="managePartyBranchEdit">
+			<result>/WEB-INF/ManagePartyBranchEdit.jsp</result>
 		</action>
 	</package>
 </struts>

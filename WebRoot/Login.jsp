@@ -54,7 +54,7 @@
                     <div class="form-group">
                         <!-- Button -->
                         <div class="col-sm-12 controls">
-                            <button type="submit" class="btn btn-primary pull-right"><i class="glyphicon glyphicon-log-in"></i>登录</button>                          
+                            <button type="submit" class="btn btn-primary pull-right"><i class="glyphicon glyphicon-log-in"></i> 登录</button>                          
                         </div>
                     </div>
 

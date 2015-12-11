@@ -7,13 +7,72 @@
 		select * from userinfo where id = #{value}
 	</select>
 	
-	<select id="selectUserByAttribute" parameterType="PairObjObj"
-		resultType="User">
-		select * from userinfo where #{first} = #{second}
+	<select id="selectUserByAttributes" parameterType="User" resultType="User">
+		select * from userinfo
+		<where>
+			<if test="id != null and id != '' ">
+				id = #{id, jdbcType=INTEGER}
+			</if>
+			<if test="studentid != null and studentid != '' ">
+				and studentid = #{studentid, jdbcType=VARCHAR}
+			</if>
+			<if test="name != null and name != '' ">
+				and name = #{name, jdbcType=VARCHAR}
+			</if>
+			<if test="uclass != null and uclass != '' ">
+				and uclass = #{uclass, jdbcType=VARCHAR}
+			</if>
+			<if test="partybranchid != null and partybranchid > 0 ">
+				and partybranchid = #{partybranchid, jdbcType=INTEGER}
+			</if>
+			<if test="status != null">
+				and status = #{status, jdbcType=INTEGER}
+			</if>
+			<if test="next_status != null">
+				and next_status = #{next_status, jdbcType=INTEGER}
+			</if>
+			<if test="is_complete != null">
+				and is_complete = #{is_complete, jdbcType=INTEGER}
+			</if>
+			<if test="applydate_begin != null and applydate_begin != ''">
+				and applydate &gt;= #{applydate_begin, jdbcType=DATE}
+			</if>
+			<if test="applydate_end != null and applydate_end != ''">
+				and applydate &lt;= #{applydate_end, jdbcType=DATE}
+			</if>
+			<if test="be_passpartyclass_date_begin != null and be_passpartyclass_date_begin != ''">
+				and be_passpartyclass_date &gt;= #{be_passpartyclass_date_begin, jdbcType=DATE}
+			</if>
+			<if test="be_passpartyclass_date_end != null and be_passpartyclass_date_end != ''">
+				and be_passpartyclass_date &lt;= #{be_passpartyclass_date_end, jdbcType=DATE}
+			</if>
+			<if test="be_activist_date_begin != null and be_activist_date_begin != ''">
+				and be_activist_date &gt;= #{be_activist_date_begin, jdbcType=DATE}
+			</if>
+			<if test="be_activist_date_end != null and be_activist_date_end != ''">
+				and be_activist_date &lt;= #{be_activist_date_end, jdbcType=DATE}
+			</if>
+			<if test="be_probationary_date_begin != null and be_probationary_date_begin != ''">
+				and be_probationary_date &gt;= #{be_probationary_date_begin, jdbcType=DATE}
+			</if>
+			<if test="be_probationary_date_end != null and be_probationary_date_end != ''">
+				and be_probationary_date &lt;= #{be_probationary_date_end, jdbcType=DATE}
+			</if>
+			<if test="be_fullmember_date_begin != null and be_fullmember_date_begin != ''">
+				and be_fullmember_date &gt;= #{be_fullmember_date_begin, jdbcType=DATE}
+			</if>
+			<if test="be_fullmember_date_end != null and be_fullmember_date_end != ''">
+				and be_fullmember_date &lt;= #{be_fullmember_date_end, jdbcType=DATE}
+			</if>
+		</where>
 	</select>
 
 	<select id="getIntroIdListById" parameterType="Integer" resultType="Integer">
 		select introid from intro where memid=#{value}
+	</select>
+	
+	<select id="getIntroListById" parameterType="Integer" resultType="User">
+		select userinfo.* from userinfo,intro where userinfo.id = intro.introid and intro.memid=#{value}
 	</select>
 
 	<insert id="setIntroById" parameterType="PairObjObj">
@@ -97,7 +156,7 @@
 		</selectKey>
 	</insert>
 
-	<update id="checkedUpdateUser" parameterType="User">
+		<update id="checkedUpdateUser" parameterType="User">
 		update userinfo set
 		studentid = #{studentid},
 		name = #{name},
@@ -112,13 +171,13 @@
 		job = #{job},
 		origo = #{origo},
 		permission = #{permission},
-                status = #{status},
-                is_complete = #{is_complete},
-                be_passpartyclass_date = #{be_passpartyclass_date},
-                be_activist_date = #{be_activist_date},
-                be_target_date = #{be_target_date},
-                be_probationary_date = #{be_probationary_date},
-                be_fullmember_date = #{be_fullmember_date}
+		status = #{status},
+		is_complete = #{is_complete},
+		be_passpartyclass_date = #{be_passpartyclass_date},
+		be_activist_date = #{be_activist_date},
+		be_target_date = #{be_target_date},
+		be_probationary_date = #{be_probationary_date},
+		be_fullmember_date = #{be_fullmember_date}
 		where id = #{id}
 	</update>
 
@@ -176,10 +235,8 @@
 	</delete>
 
 	<insert id="commitUpdateInfos" parameterType="User">
-          delete from tmp_userinfo where id = #{id};
-	  insert into tmp_userinfo (id,studentid, name, partybranchid, birthday, dormitory, telephone, uclass, gender, nation, applydate, job, origo, permission, status, is_complete, be_passpartyclass_date, be_activist_date, be_target_date, be_probationary_date, be_fullmember_date)
-	  values
-	  (#{id}, #{studentid}, #{name}, #{partybranchid}, #{birthday}, #{dormitory}, #{telephone}, #{uclass}, #{gender}, #{nation}, #{applydate}, #{job}, #{origo}, #{permission}, #{is_complete}, #{be_passpartyclass_date}, #{be_activist_date}, #{be_target_date}, #{be_probationary_date}, #{be_fullmember_date})
+	  	insert into tmp_userinfo (id, studentid, name, partybranchid, birthday, dormitory, passwd, telephone, uclass, gender, nation, applydate, job, origo, permission, status, next_status, is_complete, be_passpartyclass_date, be_activist_date, be_target_date, be_probationary_date, be_fullmember_date)
+	  	values(#{id}, #{studentid}, #{name}, #{partybranchid}, #{birthday}, #{dormitory}, '', #{telephone}, #{uclass}, #{gender}, #{nation}, #{applydate}, #{job}, #{origo}, #{permission}, #{status}, #{next_status}, #{is_complete}, #{be_passpartyclass_date}, #{be_activist_date}, #{be_target_date}, #{be_probationary_date}, #{be_fullmember_date});
 	</insert>
 
 	<select id="getUpdateList" resultType="User">

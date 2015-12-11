@@ -9,7 +9,6 @@ public class LoginAction implements Action {
 	
 	String userName;
 	String password;
-	User currentUser;
 	
 	String message;
 
@@ -22,7 +21,6 @@ public class LoginAction implements Action {
 		if(result) {
 			User.setCurrentUser(userName, password);
 			ActionContext.getContext().getSession().put("currentUserId", User.currentUser.getId());
-			currentUser = User.currentUser;
 			return "success";
 		}
 		else {
@@ -45,9 +43,5 @@ public class LoginAction implements Action {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public User getCurrentUser() {
-		return currentUser;
 	}
 }
