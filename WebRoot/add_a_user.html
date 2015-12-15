@@ -10,7 +10,9 @@
     <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/datepicker.css" rel="stylesheet">
     <script src="js/party.js"></script>
     <link href="css/party.css" rel="stylesheet">
     <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
@@ -79,11 +81,16 @@
                     添加用户
                 </div>
                 <div class="panel-body">
+                    <div class="col-md-12">
+                        <p class="col-md-offset-1 col-md-10 well error-message">
+                            学号有错，请重新提交。
+                        </p>
+                    </div>
                     <form id="info-edit-form-common" accept-charset="UTF-8" action="" method="post" class="form-horizontal">
                         <div class="form-group">
-                            <label class="col-md-2 control-label">姓名：</label>
+                        <label class="col-md-2 control-label"><em>*</em>姓名：</label>
                             <div class="col-md-2">
-                                <input type="text" id="name" class="form-control" value="张三" name="name"/>
+                                <input type="text" id="name" class="form-control not-null" value="张三" name="name"/>
                             </div>
                             <label class="col-md-2 control-label">学号：</label>
                             <div class="col-md-2">
@@ -161,7 +168,7 @@
                             </div>
                             <label class="col-md-2 control-label">定为发展对象时间：</label>
                             <div class="col-md-2">
-                                <input type="text" id="birthday" class="form-control" value="1993年6月12日" name="birthday" onclick="" />
+                                <input type="text" id="birthday" class="form-control date" value="1993年6月12日" name="birthday"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -184,16 +191,16 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">入党申请书：</label>
                             <div class="col-md-1">
-                                <input type="text" id="name" class="form-control" value="1" name="name"/>
+                                <input type="text" id="asdfasdf" class="form-control commit" value="" name="name"/>
                             </div>
                             <div class="col-md-1">
-                                <button class="btn">
-                                    <span class="glyphicon glyphicon-plus"></span>
+                                <button type="button" class="btn">
+                                    <span class="glyphicon glyphicon-plus"/>
                                 </button>
                             </div>
                             <label class="col-md-2 control-label">积极分子考察表：</label>
                             <div class="col-md-1">
-                                <input type="text" id="name" class="form-control" value="1" name="name"/>
+                                <input type="text" id="aaaaaaa" class="form-control commit" value="" name="name"/>
                             </div>
                             <div class="col-md-1">
                                 <button class="btn">
@@ -352,6 +359,7 @@
                                 <button type="submit" class="btn btn-primary">提交</button>
                             </div>
                         </div>
+                    </form>
                 </div>
             </div>
         </div>

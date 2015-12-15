@@ -86,6 +86,12 @@
 		where
 		memid = #{first} and introid=#{second}
 	</delete>
+	
+	<delete id="deleteAllIntrosByUserId" parameterType="Integer">
+		delete from intro
+		where
+		memid = #{id}
+	</delete>
 
 	<insert id="addNewPartyBranch" parameterType="PartyBranch">
 		insert into PartyBranch(partybranchname, adminid)
@@ -148,15 +154,29 @@
 	</select>
 
 	<insert id="insertUser" parameterType="User">
-		insert into userinfo (studentid, name, partybranchid, birthday, dormitory, passwd, telephone, uclass, gender, nation, applydate, job, origo, permission, status, is_complete, be_passpartyclass_date, be_activist_date, be_target_date, be_probationary_date, be_fullmember_date)
+		insert into userinfo (studentid, name, partybranchid, birthday, dormitory, passwd, telephone, uclass, gender, nation, applydate, job, origo, permission, status, next_status, is_complete, be_passpartyclass_date, be_activist_date, be_target_date, be_probationary_date, be_fullmember_date)
 		values
-		(#{studentid}, #{name}, #{partybranchid}, #{birthday}, #{dormitory}, password(#{passwd}), #{telephone}, #{uclass}, #{gender}, #{nation}, #{applydate}, #{job}, #{origo}, #{permission}, #{status}, #{is_complete}, #{be_passpartyclass_date}, #{be_activist_date}, #{be_target_date}, #{be_probationary_date}, #{be_fullmember_date})
+		(#{studentid}, #{name}, #{partybranchid}, #{birthday}, #{dormitory}, password(#{passwd}), #{telephone}, #{uclass}, #{gender}, #{nation}, #{applydate}, #{job}, #{origo}, #{permission}, #{status}, #{next_status}, #{is_complete}, #{be_passpartyclass_date}, #{be_activist_date}, #{be_target_date}, #{be_probationary_date}, #{be_fullmember_date})
 		<selectKey resultType="Integer" keyProperty="id">
 			select @@identity as id
 		</selectKey>
 	</insert>
 
-		<update id="checkedUpdateUser" parameterType="User">
+	<update id="checkedUpdateUser" parameterType="User">
+		update userinfo set
+		name = #{name},
+		birthday = #{birthday},
+		dormitory = #{dormitory},
+		telephone = #{telephone},
+		uclass = #{uclass},
+		gender = #{gender},
+		nation = #{nation},
+		job = #{job},
+		origo = #{origo},
+		where id = #{id}
+	</update>
+	
+	<update id="updateUser" parameterType="User">
 		update userinfo set
 		studentid = #{studentid},
 		name = #{name},
@@ -170,9 +190,6 @@
 		applydate = #{applydate},
 		job = #{job},
 		origo = #{origo},
-		permission = #{permission},
-		status = #{status},
-		is_complete = #{is_complete},
 		be_passpartyclass_date = #{be_passpartyclass_date},
 		be_activist_date = #{be_activist_date},
 		be_target_date = #{be_target_date},
@@ -199,6 +216,10 @@
 	</delete>
 
 	<select id="getCommitCnt" parameterType="User" resultType="Commit">
+		select * from commit where uid=#{id}
+	</select>
+	
+	<select id="getCommitCntByUserId" parameterType="Integer" resultType="Commit">
 		select * from commit where uid=#{id}
 	</select>
 

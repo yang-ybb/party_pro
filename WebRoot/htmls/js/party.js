@@ -1,3 +1,0 @@
-function datePicker() {
-	$(this).datepicker();
-}

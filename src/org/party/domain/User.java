@@ -11,6 +11,111 @@ public class User {
 	public static User currentUser = null;
 	
 	/*
+	 * 创建一个用户（包括档案信息）
+	 */
+	public static boolean createUser(User newUser, Commit newCommit) {
+		SqlSession session = DaoConfig.getNewSession();
+		boolean result = true;
+		try {
+			newUser.status = 0;
+			newUser.next_status = 0;
+			newUser.is_complete = 0;
+			newUser.permission = 0;
+			newUser.passwd = newUser.studentid;
+			UserSql.addUser(session, newUser);
+			User createdUser = User.findByStudentId(newUser.getStudentid());
+			if (createdUser == null) {
+				result = false;
+			}
+			else {
+				newCommit.setUid(createdUser.getId());
+				UserSql.createCommit(session, createdUser);
+				UserSql.updateCommit(session, newCommit);
+			}
+			session.commit();
+		}
+		catch (Exception e) {
+			//todo: 添加log
+			result = false;
+			session.rollback();
+			e.printStackTrace();
+		}
+		finally {
+			session.close();
+		}
+		return result;
+	}
+	
+	/*
+	 * 更新用户信息（管理员操作）
+	 * 
+	 * intro1和intro2是设置的介绍人，如果不修改，就都设置为-1
+	 */
+	public boolean saveUpdate(Integer introId1, Integer introId2) {
+		SqlSession session = DaoConfig.getNewSession();
+		boolean result = true;
+		try {
+			UserSql.updateUser(session, this);
+			if(introId1 > 0 || introId2 > 0) {
+				UserSql.deleteAllIntrosByUserId(session, id);
+				if (introId1 > 0) {
+					UserSql.setIntroById(session, id, introId1);
+				}
+				if (introId2 > 0) {
+					UserSql.setIntroById(session, id, introId2);
+				}
+			}
+			session.commit();
+		}
+		catch (Exception e) {
+			//todo: 添加log
+			result = false;
+			session.rollback();
+			e.printStackTrace();
+		}
+		finally {
+			session.close();
+		}
+		return result;
+	}
+	
+	/*
+	 * ==== Description
+	 *   审核通过用户对资料的修改
+	 *   
+	 *   注意：删用户的操作不好，希望优化
+	 * 
+	 * ==== Params
+	 *   userId: 操作的User的id
+	 *   type: 0 不通过, 1通过
+	 */
+	public static boolean checkUserChange(Integer userId, Integer type) {
+		SqlSession session = DaoConfig.getNewSession();
+		User tmpUser = User.findById(userId);
+		boolean result = true;
+		try {
+			if(type == 1) {
+				UserSql.checkedUpdateUser(session, tmpUser);
+				UserSql.deleteUpdateById(session, userId);
+			}
+			if(type == 0) {
+				UserSql.deleteUpdateById(session, userId);
+			}
+			session.commit();
+		}
+		catch (Exception e) {
+			//todo: 添加log
+			result = false;
+			session.rollback();
+			e.printStackTrace();
+		}
+		finally {
+			session.close();
+		}
+		return result;
+	}
+	
+	/*
 	 * 获取用户对应的临时表数据
 	 */
 	public User getTmpUser() {
@@ -179,6 +284,25 @@ public class User {
 	}
 	
 	/*
+	 * 获取所有用户
+	 */
+	public static List<User> getAllUsers() {
+		SqlSession session = DaoConfig.getNewSession();
+		List<User> users = null;
+		try {
+			users = UserSql.getAllUser(session);
+		}
+		catch(Exception e) {
+			//todo: 添加log
+			e.printStackTrace();
+		}
+		finally {
+			session.close();
+		}
+		return users;
+	}
+	
+	/*
 	 * 获取该对象对应的档案信息
 	 */
 	public Commit getCommit() {
@@ -258,6 +382,32 @@ public class User {
 			}
 		}
 		return result;
+	}
+	
+	/*
+	 * 获取第一培养人id
+	 */
+	public Integer getFirstIntroId() {
+		List<User> intros = getIntros();
+		if(intros.size() > 0) {
+			return intros.get(0).getId();
+		}
+		else {
+			return null;
+		}
+	}
+	
+	/*
+	 * 获取第二培养人id
+	 */
+	public Integer getSecondIntroId() {
+		List<User> intros = getIntros();
+		if(intros.size() > 1) {
+			return intros.get(1).getId();
+		}
+		else {
+			return null;
+		}
 	}
 	
 	/*

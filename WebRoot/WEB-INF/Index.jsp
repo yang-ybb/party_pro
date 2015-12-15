@@ -16,7 +16,9 @@
     <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/datepicker.css" rel="stylesheet">
     <script src="js/party.js"></script>
     <link href="css/party.css" rel="stylesheet">
     <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
@@ -32,7 +34,7 @@
 	
 	<div class="container-fluid main-container">
 		<jsp:include page="LeftBar.jsp" flush="true">
-			<jsp:param name="pageName" value="Index"/>
+			<jsp:param name="pageName" value="index"/>
 		</jsp:include>
 
 		<div class="col-md-10 content">
@@ -50,8 +52,7 @@
                 </div>
             </div>
             <div id="user_info_common" class="panel panel-default">
-                <div class="panel-heading">
-                    基础信息&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="panel-heading">基础信息&nbsp;&nbsp;&nbsp;&nbsp;
                     <a id="user_info_edit_common" class="text-small" href="userInfoEdit" target="_blank">编辑</a>
                 </div>
                 <div class="panel-body">
@@ -73,7 +74,7 @@
                     </span>
                     <span class="col-md-4">
                         <label>性别：</label>
-                        <span>${currentUser.getGender()}</span>
+                        <span>${currentUser.getGender()=="m"?"男":"女"}</span>
                     </span>
                     <span class="col-md-4">
                         <label>民族：</label>

@@ -2,9 +2,47 @@ package org.party.domain;
 
 import java.util.Date;
 
+import org.apache.ibatis.session.SqlSession;
+import org.party.persistence.DaoConfig;
+import org.party.persistence.UserSql;
+
 public class Commit {
 	private String notice = "";
-	private User user;
+	
+	/*
+	 * 保存对commit的更新
+	 */
+	public boolean saveUpdate() {
+		SqlSession session = DaoConfig.getNewSession();
+		boolean result = true;
+		try {
+			UserSql.updateCommit(session, this);
+			session.commit();
+		}
+		catch (Exception e) {
+			//todo: 添加日志
+			result = false;
+			session.rollback();
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	/*
+	 * 根据UserId获取档案信息
+	 */
+	public static Commit findCommitByUserId(Integer id) {
+		SqlSession session = DaoConfig.getNewSession();
+		Commit result = null;
+		try {
+			result = UserSql.getCommitByUserId(session, id);
+		}
+		catch (Exception e) {
+			//todo: 添加日志
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
 	/*
 	 * 获取档案信息提示消息

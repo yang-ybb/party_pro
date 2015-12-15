@@ -46,17 +46,41 @@
 			<result name="success">/WEB-INF/ManageUser.jsp</result>
 			<result name="error" type="redirectAction">login</result>
 		</action>
-		<action name="manageUserChangeCheck">
-			<result>/WEB-INF/ManageUserChangeCheck.jsp</result>
+		<action name="manageUserChangeCheck" class="org.party.action.ManageUserAction" method="manageUserChangeCheck">
+			<result name="success">/WEB-INF/ManageUserChangeCheck.jsp</result>
+			<result name="error" type="redirectAction">login</result>
 		</action>
-		<action name="manageUserInfoEdit">
-			<result>/WEB-INF/ManageUserInfoEdit.jsp</result>
+		<action name="checkUserChange" class="org.party.action.ManageUserAction" method="checkUserChange">
+			<result name="success" type="redirectAction">manageUser?id=${updateUserId}</result>
+			<result name="false">/WEB-INF/ManageUserChangeCheck.jsp</result>
+			<result name="error" type="redirectAction">login</result>
 		</action>
-		<action name="manageUserCommitEdit">
-			<result>/WEB-INF/ManageUserCommitEdit.jsp</result>
+		<action name="manageUserInfoEdit" class="org.party.action.ManageUserAction" method="manageUserInfoEdit">
+			<result name="success">/WEB-INF/ManageUserInfoEdit.jsp</result>
+			<result name="error" type="redirectAction">login</result>
 		</action>
-		<action name="manageUserAdd">
-			<result>/WEB-INF/ManageUserAdd.jsp</result>
+		<action name="manageUserInfoUpdate" class="org.party.action.ManageUserAction" method="manageUserInfoUpdate">
+			<result name="success" type="redirectAction">manageUser?id=${updateUserId}</result>
+			<result name="false">/WEB-INF/ManageUserInfoEdit.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="manageUserCommitEdit" class="org.party.action.ManageUserAction" method="manageUserCommitEdit">
+			<result name="success">/WEB-INF/ManageUserCommitEdit.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="manageUserCommitUpdate" class="org.party.action.ManageUserAction" method="manageUserCommitUpdate">
+			<result name="success" type="redirectAction">manageUser?id=${updateUserId}</result>
+			<result name="false">/WEB-INF/ManageUserCommitEdit.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="manageUserAdd" class="org.party.action.ManageUserAction" method="manageUserAdd">
+			<result name="success">/WEB-INF/ManageUserAdd.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="manageUserCreate" class="org.party.action.ManageUserAction" method="manageUserCreate">
+			<result name="success" type="redirectAction">manageUser?id=${id}</result>
+			<result name="false">/WEB-INF/ManageUserAdd.jsp</result>
+			<result name="error" type="redirectAction">login</result>
 		</action>
 		<action name="manageUserImport">
 			<result>/WEB-INF/ManageUserImport.jsp</result>

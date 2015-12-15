@@ -4,7 +4,6 @@ import org.party.domain.*;
 import org.apache.ibatis.session.*;
 
 import java.util.*;
-import java.sql.Date;
 
 @SuppressWarnings("unchecked")
 public class UserSql {	
@@ -107,6 +106,13 @@ public class UserSql {
         poo.setSecond(introid);
         session.delete("deleteIntroById",poo);
     }
+    
+    /*
+     * 删除用户的所有培养/介绍人
+     */
+    public static void deleteAllIntrosByUserId(SqlSession session, Integer id){
+        session.delete("deleteAllIntrosByUserId", id);
+    }
 
     /*
      * 添加新党支部
@@ -195,6 +201,13 @@ public class UserSql {
     public static void checkedUpdateUser(SqlSession session, User user) {
         session.update("checkedUpdateUser", user);
     }
+    
+    /*
+     * 更新User信息
+     */
+    public static void updateUser(SqlSession session, User user) {
+        session.update("updateUser", user);
+    }
 
     /*
      * 删除update信息
@@ -225,10 +238,17 @@ public class UserSql {
     }
 
     /*
-     * 获取材料数量
+     * 获取档案信息
      */
     public static Commit getCommit(SqlSession session, User user) {
         return (Commit) session.selectOne("getCommitCnt", user);
+    }
+    
+    /*
+     * 获取档案信息
+     */
+    public static Commit getCommitByUserId(SqlSession session, Integer id) {
+        return (Commit) session.selectOne("getCommitCntByUserId", id);
     }
 
     /*
