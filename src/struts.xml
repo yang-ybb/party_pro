@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <!-- 设置浏览器是否缓存静态内容,默认值为true(生产环境下使用),开发阶段最好关闭 -->
+    <constant name="struts.serve.static.browserCache" value="false" />
+    <!-- 当struts的配置文件修改后,系统是否自动重新加载该文件,默认值为false(生产环境下使用),开发阶段最好打开 -->
+    <constant name="struts.configuration.xml.reload" value="true" />
+    <!-- 开发模式下使用,这样可以打印出更详细的错误信息 -->
+    <constant name="struts.devMode" value="true" />
+    <!--解决乱码    -->
+    <constant name="struts.i18n.encoding" value="UTF-8" />
+    <!-- 指定允许上传的文件最大字节数。默认值是2097152(2M) -->
+    <constant name="struts.multipart.maxSize" value="10701096"/>
+    <!-- 设置上传文件的临时文件夹,默认使用javax.servlet.context.tempdir -->
+<!--     <constant name="struts.multipart.saveDir " value="/tmp" /> -->
+
+	<package name="Authentication" namespace="/" extends="struts-default">	
+		<!--  拦截器 -->
+		<interceptors>
+			<!-- 验证是否登录 -->
+			<interceptor name="authority" 
+				class="org.party.interceptor.LoginInterceptor">
+			</interceptor>
+			
+			<!-- 拦截器栈 -->
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="authority" />
+			</interceptor-stack>
+		</interceptors>
+	
+		<default-action-ref name="login"/>
+		
+		<action name="login">
+			<result>Login.jsp</result>
+		</action>
+		<action name="loginAction" class="org.party.action.LoginAction" method="execute">
+			<result name="success" type="redirectAction">index</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="logout">
+			<result>/WEB-INF/Logout.jsp</result>
+		</action>
+		<action name="index" class="org.party.action.UserAction" method="index">
+			<result name="success">WEB-INF/Index.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="userInfoEdit" class="org.party.action.UserAction" method="userInfoEdit">
+			<result name="success">/WEB-INF/UserInfoEdit.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="userInfoUpdate" class="org.party.action.UserAction" method="userInfoUpdate">
+			<result name="success" type="redirectAction">index</result>
+			<result name="false">/WEB-INF/UserInfoEdit.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="passwordEdit" class="org.party.action.UserAction" method="passwordEdit">
+			<result name="success">/WEB-INF/PasswordEdit.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="passwordUpdate" class="org.party.action.UserAction" method="passwordUpdate">
+			<result name="success" type="redirectAction">login</result>
+			<result name="false">/WEB-INF/PasswordEdit.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="search" class="org.party.action.ManageSearchAction" method="search">
+			<result name="success">/WEB-INF/ManageSearch.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="manageUser" class="org.party.action.ManageUserAction" method="manageUser">
+			<result name="success">/WEB-INF/ManageUser.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="manageUserChangeCheck" class="org.party.action.ManageUserAction" method="manageUserChangeCheck">
+			<result name="success">/WEB-INF/ManageUserChangeCheck.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="checkUserChange" class="org.party.action.ManageUserAction" method="checkUserChange">
+			<result name="success" type="redirectAction">manageUser?id=${updateUserId}</result>
+			<result name="false">/WEB-INF/ManageUserChangeCheck.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="manageUserInfoEdit" class="org.party.action.ManageUserAction" method="manageUserInfoEdit">
+			<result name="success">/WEB-INF/ManageUserInfoEdit.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="manageUserInfoUpdate" class="org.party.action.ManageUserAction" method="manageUserInfoUpdate">
+			<result name="success" type="redirectAction">manageUser?id=${updateUserId}</result>
+			<result name="false">/WEB-INF/ManageUserInfoEdit.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="manageUserCommitEdit" class="org.party.action.ManageUserAction" method="manageUserCommitEdit">
+			<result name="success">/WEB-INF/ManageUserCommitEdit.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="manageUserCommitUpdate" class="org.party.action.ManageUserAction" method="manageUserCommitUpdate">
+			<result name="success" type="redirectAction">manageUser?id=${updateUserId}</result>
+			<result name="false">/WEB-INF/ManageUserCommitEdit.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="manageUserAdd" class="org.party.action.ManageUserAction" method="manageUserAdd">
+			<result name="success">/WEB-INF/ManageUserAdd.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="manageUserCreate" class="org.party.action.ManageUserAction" method="manageUserCreate">
+			<result name="success" type="redirectAction">manageUser?id=${id}</result>
+			<result name="false">/WEB-INF/ManageUserAdd.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="manageUserImport" class="org.party.action.ManageUserImportAction" 
+			method="manageUserImport">
+			<result name="success">/WEB-INF/ManageUserImport.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="manageUserImportAction" class="org.party.action.ManageUserImportAction" 
+			method="manageUserImportAction">
+			<result name="success">/WEB-INF/ManageUserImport.jsp</result>
+			<result name="false">/WEB-INF/ManageUserImport.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="managePartyBranch" class="org.party.action.ManagePartyBranchAction" method="managePartyBranch">
+			<result name="success">/WEB-INF/ManagePartyBranch.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="managePartyBranchCreate" class="org.party.action.ManagePartyBranchAction" method="managePartyBranchCreate">
+			<result name="success" type="redirectAction">managePartyBranch</result>
+			<result name="false">/WEB-INF/ManagePartyBranch.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="managePartyBranchEdit" class="org.party.action.ManagePartyBranchAction" method="managePartyBranchEdit">
+			<result name="success">/WEB-INF/ManagePartyBranchEdit.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+		<action name="managePartyBranchUpdate" class="org.party.action.ManagePartyBranchAction" method="managePartyBranchUpdate">
+			<result name="success" type="redirectAction">managePartyBranch</result>
+			<result name="false">/WEB-INF/ManagePartyBranchEdit.jsp</result>
+			<result name="error" type="redirectAction">login</result>
+		</action>
+	</package>
+</struts>

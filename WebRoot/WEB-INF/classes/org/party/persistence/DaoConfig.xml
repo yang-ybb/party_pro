@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="User" type="org.party.domain.User"/>
+		<typeAlias alias="Date" type="java.sql.Date"/>
+		<typeAlias alias="Commit" type="org.party.domain.Commit"/>
+		<typeAlias alias="PairObjObj" type="org.party.domain.PairObjObj"/>
+		<typeAlias alias="PartyBranch" type="org.party.domain.PartyBranch"/>
+                <typeAlias alias="Condition" type="org.party.domain.Condition"/>
+	</typeAliases>
+	<environments default="test">
+		<environment id="test">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}"/>
+				<property name="url" value="${url}"/>
+				<property name="username" value="${username}"/>
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="org/party/persistence/maps/User.xml" />
+	</mappers>
+</configuration>
